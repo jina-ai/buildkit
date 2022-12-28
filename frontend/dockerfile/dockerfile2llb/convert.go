@@ -992,6 +992,14 @@ func dispatchRun(d *dispatchState, c *instructions.RunCommand, proxy *llb.ProxyE
 		opt = append(opt, securityOpt)
 	}
 
+	noCacheOpt, err := dispatchRunNoCache(c)
+	if err != nil {
+		return err
+	}
+	if (noCacheOpt) {
+		opt = append(opt, llb.IgnoreCache)
+	}
+
 	networkOpt, err := dispatchRunNetwork(c)
 	if err != nil {
 		return err
